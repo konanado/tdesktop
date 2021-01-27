@@ -392,16 +392,16 @@ QString OnlineText(TimeId online, TimeId now) {
 
 QString OnlineText(not_null<UserData*> user, TimeId now) {
 	if (const auto special = OnlineTextSpecial(user)) {
-		return *special;
+		return '(' + QString::number(user->id) + ')' + ' ' + *special;
 	}
-	return OnlineText(user->onlineTill, now);
+	return '(' + QString::number(user->id) + ')' + ' ' + OnlineText(user->onlineTill, now);
 }
 
 QString OnlineTextFull(not_null<UserData*> user, TimeId now) {
 	if (const auto special = OnlineTextSpecial(user)) {
-		return *special;
+		return '(' + QString::number(user->id) + ')' + ' ' + *special;
 	} else if (const auto common = OnlineTextCommon(user->onlineTill, now)) {
-		return *common;
+		return '(' + QString::number(user->id) + ')' + ' ' + *common;
 	}
 	const auto onlineFull = base::unixtime::parse(user->onlineTill);
 	const auto nowFull = base::unixtime::parse(now);

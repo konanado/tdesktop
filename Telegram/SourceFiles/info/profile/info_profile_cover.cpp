@@ -419,7 +419,7 @@ void Cover::refreshStatusText() {
 			auto fullCount = std::max(
 				chat->count,
 				int(chat->participants.size()));
-			return ChatStatusText(fullCount, _onlineCount, true);
+			return ChatStatusText(fullCount, _onlineCount, true) + ' ' + '#' + QString::number(chat->id);
 		} else if (auto channel = _peer->asChannel()) {
 			auto fullCount = qMax(channel->membersCount(), 1);
 			auto result = ChatStatusText(

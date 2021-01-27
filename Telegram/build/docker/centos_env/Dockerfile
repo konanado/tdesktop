@@ -451,7 +451,7 @@ RUN chmod a+x ./run_configure.sh
 RUN ./run_configure.sh
 RUN rm ./run_configure.sh
 
-RUN make -j$(nproc)
+RUN make -j4
 RUN make INSTALL_ROOT="$LibrariesPath/qt-cache" install
 
 WORKDIR ..
@@ -477,7 +477,7 @@ RUN git apply ../patches/gyp.diff
 
 WORKDIR ../breakpad
 RUN ./configure
-RUN make -j$(nproc)
+RUN make -j4
 RUN make DESTDIR="$BreakpadCache" install
 
 WORKDIR src
@@ -490,7 +490,7 @@ RUN ../../../gyp/gyp  --depth=. --generator-output=.. -Goutput_dir=../out tools.
 
 WORKDIR ../../out/Default
 RUN cmake3 .
-RUN cmake3 --build . --target dump_syms -j$(nproc)
+RUN cmake3 --build . --target dump_syms -j4
 RUN mv dump_syms $BreakpadCache
 
 WORKDIR ..
